@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MACRO GYM - Registro de Clientes</title>
+    <link rel="icon" type="image/png" href="img/logo_icono.png">
+    <link rel="stylesheet" href="styles/style1.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .clientes-section {
+            padding: 120px 20px 80px;
+            background-color: #f8f8f8;
+            position: relative;
+        }
+        
+        .clientes-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("img/pattern.png");
+            opacity: 0.05;
+            z-index: 0;
+        }
+        
+        .clientes-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--sombra-media);
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+            /* 新しいスタイル: 上部にアクセントボーダーを追加 */
+            border-top: 5px solid var(--azul-logo);
+        }
+        
+        .clientes-header {
+            text-align: center;
+            margin-bottom: 40px; /* 余白を増やして区別 */
+        }
+        
+        .clientes-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--fondo-oscuro);
+            /* 新しいスタイル: テキストに下線を追加 */
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .clientes-header h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--azul-logo);
+        }
+        
+        .clientes-form {
+            /* 新しいスタイル: 1列レイアウトに変更 */
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--texto-oscuro);
+            /* 新しいスタイル: ラベルのスタイルを変更 */
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: "Montserrat", sans-serif;
+            font-size: 1rem;
+            transition: var(--transicion);
+            background-color: #f9f9f9;
+            /* 新しいスタイル: 入力フィールドのスタイルを変更 */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--azul-logo);
+            box-shadow: 0 0 0 3px rgba(0, 136, 255, 0.1);
+            background-color: white;
+        }
+        
+        /* アイコンの位置を修正 */
+        .form-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        /* 入力フィールドにアイコンがある場合の位置調整 */
+        .form-group label + .form-icon {
+            top: 70%;
+        }
+        
+        /* 新しいスタイル: 送信ボタンのスタイルを変更 */
+        .submit-button {
+            background: linear-gradient(135deg, var(--azul-logo) 0%, #0066cc 100%);
+            color: white;
+            padding: 16px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 136, 255, 0.2);
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto 0;
+        }
+        
+        .submit-button:hover {
+            background: linear-gradient(135deg, #0066cc 0%, var(--azul-logo) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(0, 136, 255, 0.3);
+        }
+        
+        .payment-info {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(51, 204, 51, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            color: var(--verde-logo);
+            font-weight: 600;
+            /* 新しいスタイル: 情報ボックスのスタイルを変更 */
+            border-left: 4px solid var(--verde-logo);
+        }
+        
+        .payment-info i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .success-message {
+            display: none;
+            margin-top: 20px;
+            background-color: rgba(51, 204, 51, 0.1);
+            color: var(--verde-logo);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        /* 新しいスタイル: ページタイトルの上にバッジを追加 */
+        .page-badge {
+            background-color: var(--azul-logo);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+            box-shadow: 0 3px 10px rgba(0, 136, 255, 0.2);
+        }
+        
+        @media screen and (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .clientes-container {
+                padding: 30px 20px;
+            }
+            
+            .clientes-header h2 {
+                font-size: 2rem;
+            }
+            
+            .submit-button {
+                width: 100%;
+                max-width: none;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .clientes-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .clientes-header p {
+                font-size: 0.9rem;
+            }
+            
+            .form-group input,
+            .form-group select {
+                padding: 12px 12px 12px 40px;
+                font-size: 0.9rem;
+            }
+            
+            .submit-button {
+                padding: 14px 25px;
+                font-size: 1rem;
+            }
+            
+        }
+
+    .error-message {
+        color: red;
+        font-size: 0.8rem;
+        margin-top: 5px;
+    }
+    
+    input:invalid, select:invalid {
+        border-color: rgb(0, 119, 255) !important;
+    }
+    
+    /* Estilo para campos con validación correcta */
+    input.valid, select.valid {
+        border-color: #33cc33 !important;
+        background-color: rgba(51, 204, 51, 0.05) !important;
+    }
+</style>
+</head>
+<body>
+    <!-- Botón para volver arriba -->
+    <button id="back-to-top" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <header>
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="logo">
+                    <a href="Index.html">
+                        <img src="img/logo.png" alt="Logo MacroGym Fitness">
+                    </a>
+                </div>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="Index.html" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="maquinas.html" class="nav-link">Maquinas</a></li>
+                    <li class="nav-item"><a href="galeria.html" class="nav-link">Galeria</a></li>
+                    <li class="nav-item"><a href="Planes.html" class="nav-link">Planes</a></li>
+                    <li class="nav-item"><a href="calculadora-imc.html" class="nav-link">Calcula tu IMC</a></li>
+                    <li class="nav-item"><a href="fitness-wiki.html" class="nav-link">Fitness Wiki</a></li>
+                    
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="clientes-section">
+            <div class="clientes-container">
+                <div class="clientes-header">
+                    <h2>INSCRIBETE AHORA!</h2>
+                    <div class="section-divider">
+                        <span></span>
+                        <i class="fas fa-users"></i>
+                        <span></span>
+                    </div>
+                    <p>Complete el formulario para registrarse como cliente de MACRO GYM</p>
+                </div>
+                
+                <form id="clientesForm" class="clientes-form" action="https://formspree.io/f/xzzevrpy" method="POST">
+                    <!-- Campo honeypot invisible para los usuarios pero visible para los bots -->
+                    <div class="honeypot-field" style="display:none !important; visibility:hidden; opacity:0; position:absolute; left:-9999px;">
+                        <label for="website_field">Website (No completar este campo)</label>
+                        <input type="text" name="website_field" id="website_field" tabindex="-1" autocomplete="off">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombre">Nombre <span style="color: red;">*</span></label>
+                            <div class="form-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="apellido">Apellido <span style="color: red;">*</span></label>
+                            <div class="form-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <input type="text" id="apellido" name="apellido" placeholder="Apellido" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cedula">C.I <span style="color: red;">*</span></label>
+                            <div class="form-icon">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                            <input type="text" id="cedula" name="cedula" placeholder="C.I" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefono">Telefono <span style="color: red;">*</span></label>
+                            <div class="form-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <input type="tel" id="telefono" name="telefono" placeholder="Telefono" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email <span style="color: red;">*</span></label>
+                            <div class="form-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <input type="email" id="email" name="email" placeholder="Email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fecha_nacimiento">Fecha de Nacimiento <span style="color: red;">*</span></label>
+                            <div class="form-icon">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="plan">Plan <span style="color: red;">*</span></label>
+                            <div class="form-icon">
+                                <i class="fas fa-tag"></i>
+                            </div>
+                            <select id="plan" name="plan" required>
+                                <option value="">Elige un plan</option>
+                                <option value="Normal">PLAN INDIVIDUAL 150.000 Gs/mes</option>
+                                <option value="2 meses">PLAN TRIO FIT 390.000 Gs/mes</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="horario">Horario <span style="color: red;">*</span></label>
+                            <div class="form-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <select id="horario" name="horario" required>
+                                <option value="">Seleccione la zona horaria</option>
+                                <option value="Mañana">Mañana (6:00 - 12:00)</option>
+                                <option value="Tarde">Tarde (12:00 - 18:00)</option>
+                                <option value="Noche">Noche (18:00 - 22:00)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="direccion">Dirección</label>
+                        <div class="form-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <input type="text" id="direccion" name="direccion" placeholder="Introduzca su dirección">
+                    </div>
+                    
+                    <!-- リダイレクト先のページを指定 -->
+                    <input type="hidden" name="_next" value="https://tu-sitio-web.com/gracias.html">
+                    
+                    <!-- メールの件名を設定 -->
+                    <input type="hidden" name="_subject" value="Nuevo registro de cliente en MACRO GYM">
+                    
+                    <!-- reCAPTCHAを無効化（必要に応じて） -->
+                    <input type="hidden" name="_captcha" value="false">
+                    
+                    <button type="submit" class="submit-button" id="submitBtn">
+                        <span>Inscribir</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+                
+                <div class="payment-info">
+                    <i class="fas fa-info-circle"></i> El pago se realizará en la tienda. Después del registro nuestro personal le guiará.
+                </div>
+                
+                <div id="successMessage" class="success-message">
+                    <i class="fas fa-check-circle" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                    <h3>¡Registro exitoso!</h3>
+                    <p>Gracias. Su información ha sido registrada exitosamente.</p>
+                    <p>Los detalles del pago se proporcionarán en la tienda.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-main">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <img src="img/logo.png" alt="Logo MacroGym Fitness">
+                    </div>
+                    <p>MacroGym Fitness es tu mejor opción para alcanzar tus objetivos de entrenamiento con instalaciones modernas y entrenadores profesionales.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Enlaces rápidos</h3>
+                    <ul>
+                        <li><a href="Index.html#entrena_aqui">Nuestro Gimnasio</a></li>
+                        <li><a href="Index.html#boxeo">Musculación</a></li>
+                        <li><a href="Index.html#entrenadores">Entrenadores</a></li>
+                        <li><a href="Index.html#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Información de contacto</h3>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>Av. Francisco Acuña De Figueroa casi, Asunción 001102</p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+595 991 765 892</p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2e474048416e434f4d5c41495743004d4143">info@macrogymfitness.com</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-social">
+                <a href="https://www.facebook.com/macrogympy/?locale=es_LA" target="_blank" class="social-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/macrogymfitness/" target="_blank" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://api.whatsapp.com/send?phone=%2B595991765892" target="_blank" class="social-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright">Copyright &copy; 2025 - MacroGym Fitness Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <!-- スクリプト -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // モバイルメニュー
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            mobileMenu.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // リンクをクリックしたときにメニューを閉じる
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // トップに戻るボタン
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // ローカルストレージにもデータを保存する（オプション）
+            const clientesForm = document.getElementById('clientesForm');
+            const successMessage = document.getElementById('successMessage');
+
+            // Validación del formulario con honeypot
+        clientesForm.addEventListener('submit', function(e) {
+            // Verificar si el campo honeypot está vacío
+            const honeypotField = document.getElementById('website_field');
+            if (honeypotField && honeypotField.value !== '') {
+                // Si el campo honeypot tiene contenido, es probablemente un bot
+                e.preventDefault();
+                console.log('Envío de formulario bloqueado: posible bot detectado');
+                return false;
+            }
+            
+            // Si llegamos aquí, el formulario es válido (no es un bot)
+            // El código existente para guardar en localStorage puede continuar aquí
+            
+            // Recopilar datos del formulario
+            const formData = new FormData(clientesForm);
+            const userData = {};
+            
+            for (const [key, value] of formData.entries()) {
+                // No incluir el campo honeypot en los datos guardados
+                if (key !== 'website_field') {
+                    userData[key] = value;
+                }
+            }
+            
+            // Guardar en localStorage
+            saveToLocalStorage(userData);
+            
+            return true;
+        });
+            
+            clientesForm.addEventListener('submit', function(e) {
+                // フォームの送信は阻止しない - Formspreeに送信される
+                
+                // フォームデータの収集
+                const formData = new FormData(clientesForm);
+                const userData = {};
+                
+                for (const [key, value] of formData.entries()) {
+                    userData[key] = value;
+                }
+                
+                // ローカルストレージにも保存（オプション）
+                saveToLocalStorage(userData);
+                
+                // 注意: Formspreeはフォームを送信した後、自動的にリダイレクトするため
+                // 以下のコードは実行されない可能性があります
+                // successMessage.style.display = 'block';
+            });
+            
+            // ローカルストレージに保存する関数
+            function saveToLocalStorage(userData) {
+                // 既存のデータを取得
+                let existingData = JSON.parse(localStorage.getItem('inscripcionData')) || [];
+                
+                // 新しいデータを追加
+                existingData.push({
+                    nombre: userData.nombre,
+                    apellido: userData.apellido,
+                    cedula: userData.cedula,
+                    telefono: userData.telefono,
+                    email: userData.email,
+                    fecha_nacimiento: userData.fecha_nacimiento,
+                    plan: userData.plan,
+                    horario: userData.horario,
+                    direccion: userData.direccion || '',
+                    fecha_inscripcion: new Date().toISOString().split('T')[0]
+                });
+                
+                // 名前と姓でソート
+                existingData.sort((a, b) => {
+                    if (a.apellido === b.apellido) {
+                        return a.nombre.localeCompare(b.nombre);
+                    }
+                    return a.apellido.localeCompare(b.apellido);
+                });
+                
+                // ローカルストレージに保存
+                localStorage.setItem('inscripcionData', JSON.stringify(existingData));
+                
+                console.log('データがローカルストレージに保存されました:', existingData);
+            }
+        });
+    </script>
+<script src="js/validacion-formularios.js"></script>
+</body>
+</html>
+

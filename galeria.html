@@ -9,134 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Galería mejorada */
-        .galeria-section {
-            background: var(--fondo-pagina);
-            padding: 80px 0 40px 0;
-        }
-        .galeria-filtros {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .galeria-filtros .cta-button {
-            margin: 0 8px 10px 0;
-            font-size: 1rem;
-            padding: 10px 28px;
-            border-radius: 30px;
-            border: none;
-            background: var(--gris-medio);
-            color: #fff;
-            transition: background 0.2s, color 0.2s;
-        }
-        .galeria-filtros .cta-button.active,
-        .galeria-filtros .cta-button:hover {
-            background: var(--azul-logo);
-            color: #fff;
-        }
-        .galeria-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-            gap: 32px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .galeria-item.card {
-            background: #fff;
-            border-radius: 18px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.09), 0 1.5px 6px rgba(0,0,0,0.06);
-            overflow: hidden;
-            transition: transform 0.18s, box-shadow 0.18s;
-            cursor: pointer;
-            position: relative;
-        }
-        .galeria-item.card:hover {
-            transform: translateY(-7px) scale(1.025);
-            box-shadow: 0 8px 32px rgba(0,136,255,0.13), 0 2px 8px rgba(0,0,0,0.08);
-        }
-        .galeria-item .card-image {
-            position: relative;
-            width: 100%;
-            height: 220px;
-            overflow: hidden;
-        }
-        .galeria-item .card-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-        .galeria-item.card:hover .card-image img {
-            transform: scale(1.07);
-        }
-        .galeria-categoria {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            background: var(--azul-logo);
-            color: #fff;
-            padding: 5px 16px;
-            border-radius: 16px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-            z-index: 2;
-        }
-        .categoria-entrenamiento { background: var(--rojo-logo);}
-        .categoria-eventos { background: var(--naranja-logo);}
-        .categoria-equipo { background: var(--verde-logo);}
-        .galeria-item .card-content {
-            padding: 22px 22px 18px 22px;
-        }
-        .galeria-item .card-content h3 {
-            margin: 0 0 8px 0;
-            font-size: 1.25rem;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            color: var(--gris-oscuro);
-        }
-        .galeria-item .card-content p {
-            font-size: 1rem;
-            color: var(--gris-medio);
-            margin-bottom: 16px;
-        }
-        .galeria-fecha {
-            font-size: 0.98rem;
-            color: var(--azul-logo);
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
-        /* Overlay al pasar el mouse */
-        .galeria-item .card-overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,136,255,0.13);
-            opacity: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.22s;
-            z-index: 3;
-        }
-        .galeria-item.card:hover .card-overlay {
-            opacity: 1;
-        }
-        .galeria-item .card-overlay i {
-            font-size: 2.2rem;
-            color: #fff;
-            background: var(--azul-logo);
-            padding: 16px;
-            border-radius: 50%;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.18);
-        }
-        @media (max-width: 700px) {
-            .galeria-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -176,94 +48,100 @@
 
     <main>
         <!-- Sección de Galería -->
-        <section id="galeria" class="galeria-section">
-            <div class="galeria-container">
-                <div class="section-header">
-                    <h2><center>GALERÍA DE FOTOS</center></h2>
-                    <div class="section-divider">
-                        <span></span>
-                        <i class="fas fa-camera"></i>
-                        <span></span>
-                    </div>
-                    <p>Explora nuestra colección de imágenes y descubre el ambiente de MacroGym</p>
+        <section id="galeria" class="programas-section">
+            <div class="section-header">
+                <h2><center>GALERÍA DE FOTOS</center></h2>
+                <div class="section-divider">
+                    <span></span>
+                    <i class="fas fa-camera"></i>
+                    <span></span>
                 </div>
-                <div class="galeria-grid">
-                    <!-- Tarjeta 1 -->
-                    <div class="card galeria-item" data-categoria="instalaciones">
-                        <div class="card-image">
-                            <img src="img/galeria_pesas.jpg" alt="Área de pesas">
-                        </div>
-                        <div class="card-content">
-                            <h3>Área de Pesas</h3>
-                            <p>Zona equipada con mancuernas, barras y discos de última generación.</p>
-                            <div class="galeria-fecha">
+                <p>Explora nuestra colección de imágenes y descubre el ambiente de MacroGym</p>
+            </div>
+            <div class="programas-grid">
+                <!-- Tarjeta 1 -->
+                <div class="programa-card galeria-item" data-categoria="instalaciones">
+                    <div class="programa-image">
+                        <img src="img/galeria_pesas.jpg" alt="Área de pesas">
+                    </div>
+                    <div class="programa-content">
+                        <h3>Área de Pesas</h3>
+                        <div class="programa-details">
+                            <div class="programa-detail">
+                                <i class="fas fa-dumbbell"></i>
+                                <span>Instalaciones</span>
+                            </div>
+                            <div class="programa-detail">
                                 <i class="far fa-calendar-alt"></i>
                                 <span>Enero 2025</span>
                             </div>
                         </div>
+                        <p>Zona equipada con mancuernas, barras y discos de última generación.</p>
                     </div>
-                    <!-- Tarjeta 2 -->
-                    <div class="card galeria-item" data-categoria="entrenamiento">
-                        <div class="card-image">
-                            <img src="img/galeria_clase.jpg" alt="Clase grupal">
-                        </div>
-                        <div class="card-content">
-                            <h3>Clase Grupal</h3>
-                            <p>Entrenamientos funcionales y clases dirigidas para todos los niveles.</p>
-                            <div class="galeria-fecha">
+                </div>
+                <!-- Tarjeta 2 -->
+                <div class="programa-card galeria-item" data-categoria="entrenamiento">
+                    <div class="programa-image">
+                        <img src="img/galeria_clase.jpg" alt="Clase grupal">
+                    </div>
+                    <div class="programa-content">
+                        <h3>Clase Grupal</h3>
+                        <div class="programa-details">
+                            <div class="programa-detail">
+                                <i class="fas fa-users"></i>
+                                <span>Entrenamiento</span>
+                            </div>
+                            <div class="programa-detail">
                                 <i class="far fa-calendar-alt"></i>
                                 <span>Febrero 2025</span>
                             </div>
                         </div>
+                        <p>Entrenamientos funcionales y clases dirigidas para todos los niveles.</p>
                     </div>
-                    <!-- Tarjeta 3 -->
-                    <div class="card galeria-item" data-categoria="eventos">
-                        <div class="card-image">
-                            <img src="img/galeria_evento.jpg" alt="Evento especial">
-                        </div>
-                        <div class="card-content">
-                            <h3>Evento Especial</h3>
-                            <p>Competencias y celebraciones con la comunidad MacroGym.</p>
-                            <div class="galeria-fecha">
+                </div>
+                <!-- Tarjeta 3 -->
+                <div class="programa-card galeria-item" data-categoria="eventos">
+                    <div class="programa-image">
+                        <img src="img/galeria_evento.jpg" alt="Evento especial">
+                    </div>
+                    <div class="programa-content">
+                        <h3>Evento Especial</h3>
+                        <div class="programa-details">
+                            <div class="programa-detail">
+                                <i class="fas fa-star"></i>
+                                <span>Eventos</span>
+                            </div>
+                            <div class="programa-detail">
                                 <i class="far fa-calendar-alt"></i>
                                 <span>Marzo 2025</span>
                             </div>
                         </div>
+                        <p>Competencias y celebraciones con la comunidad MacroGym.</p>
                     </div>
-                    <!-- Tarjeta 4 -->
-                    <div class="card galeria-item" data-categoria="equipo">
-                        <div class="card-image">
-                            <img src="img/galeria_equipo.jpg" alt="Nuestro equipo">
-                        </div>
-                        <div class="card-content">
-                            <h3>Nuestro Equipo</h3>
-                            <p>Entrenadores certificados y staff siempre listos para ayudarte.</p>
-                            <div class="galeria-fecha">
+                </div>
+                <!-- Tarjeta 4 -->
+                <div class="programa-card galeria-item" data-categoria="equipo">
+                    <div class="programa-image">
+                        <img src="img/galeria_equipo.jpg" alt="Nuestro equipo">
+                    </div>
+                    <div class="programa-content">
+                        <h3>Nuestro Equipo</h3>
+                        <div class="programa-details">
+                            <div class="programa-detail">
+                                <i class="fas fa-user-friends"></i>
+                                <span>Equipo</span>
+                            </div>
+                            <div class="programa-detail">
                                 <i class="far fa-calendar-alt"></i>
                                 <span>Abril 2025</span>
                             </div>
                         </div>
+                        <p>Entrenadores certificados y staff siempre listos para ayudarte.</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-
-    <!-- Modal para ver imagen ampliada -->
-    <div class="modal" id="imageModal" style="display:none;">
-        <span class="modal-close" id="modalClose">&times;</span>
-        <div class="modal-content">
-            <img src="/placeholder.svg" alt="Imagen ampliada" class="modal-img" id="modalImg">
-            <div class="modal-caption">
-                <h3 id="modalTitle"></h3>
-                <p id="modalDesc"></p>
-            </div>
-        </div>
-        <div class="modal-nav">
-            <span class="modal-nav-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></span>
-            <span class="modal-nav-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></span>
-        </div>
-    </div>
 
     <footer>
         <div class="footer-main">
@@ -315,62 +193,5 @@
             <p class="copyright">Copyright &copy; 2025 - MacroGym Fitness Todos los derechos reservados</p>
         </div>
     </footer>
-
-    <!-- Scripts -->
-    <script>
-    // Filtro de galería
-    document.querySelectorAll('.filtro-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            const filtro = this.getAttribute('data-filter');
-            document.querySelectorAll('.galeria-item').forEach(item => {
-                if (filtro === 'todos' || item.getAttribute('data-categoria') === filtro) {
-                    item.style.display = '';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
-    });
-
-    // Modal de imagen
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImg');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalDesc = document.getElementById('modalDesc');
-    let galeriaItems = Array.from(document.querySelectorAll('.galeria-item'));
-    let currentIndex = 0;
-
-    function openModal(index) {
-        const card = galeriaItems[index];
-        const img = card.querySelector('img');
-        const title = card.querySelector('h3').textContent;
-        const desc = card.querySelector('p').textContent;
-        modalImg.src = img.src;
-        modalImg.alt = img.alt;
-        modalTitle.textContent = title;
-        modalDesc.textContent = desc;
-        modal.style.display = 'flex';
-        currentIndex = index;
-    }
-
-    document.querySelectorAll('.galeria-item .card-overlay').forEach((overlay, idx) => {
-        overlay.addEventListener('click', () => openModal(idx));
-    });
-
-    document.getElementById('modalClose').onclick = () => modal.style.display = 'none';
-    document.getElementById('prevBtn').onclick = () => {
-        currentIndex = (currentIndex - 1 + galeriaItems.length) % galeriaItems.length;
-        openModal(currentIndex);
-    };
-    document.getElementById('nextBtn').onclick = () => {
-        currentIndex = (currentIndex + 1) % galeriaItems.length;
-        openModal(currentIndex);
-    };
-    window.onclick = function(event) {
-        if (event.target === modal) modal.style.display = 'none';
-    };
-    </script>
 </body>
 </html>
